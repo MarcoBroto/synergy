@@ -2,22 +2,29 @@
  * 
  */
 
-import React from 'react';
-import { Button, NativeSyntheticEvent, NativeTouchEvent, StyleSheet, View } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import { Button, StyleSheet, View } from 'react-native';
+import { RootNavigationProps, RootNavigationRouteName } from '../../models/NavigationTypes';
 
 
 interface PassedProps {
 
 }
 
-type Props = PassedProps & NavigationProps
+type Props = PassedProps & RootNavigationProps<'Home'>
 
 
 export default function HomeScreen(props: Props) {
 
-	const onButtonPressed = (event: NativeSyntheticEvent<NativeTouchEvent>, route: string) => {
-		console.log({event, route})
-	}
+	useLayoutEffect(() => {
+		props.navigation.setOptions({
+			headerRight: () => <Button title="Settings" onPress={() => props.navigation.navigate('Settings')} />
+		})
+	})
+
+	// const handleButtonPress = (event: NativeSyntheticEvent<NativeTouchEvent>) => { }
+
+	const navigateToScreen = (screenName: RootNavigationRouteName) => props.navigation.navigate(screenName)
 
 	return (
 		<View style={styles.container}>
@@ -28,15 +35,13 @@ export default function HomeScreen(props: Props) {
 					<View style={styles.btnContainer}>
 						<Button
 							title="Go To Screen 1"
-							onPress={e => onButtonPressed(e, '')}
-							color="red"
+							onPress={() => navigateToScreen('List')}
 						/>
 					</View>
 					<View style={styles.btnContainer}>
 						<Button
 							title="Go To Screen 2"
-							onPress={e => onButtonPressed(e, '')}
-							color="red"
+							onPress={() => navigateToScreen('List')}
 						/>
 					</View>
 				</View>
@@ -46,20 +51,19 @@ export default function HomeScreen(props: Props) {
 					<View style={styles.btnContainer}>
 						<Button
 							title="Go To Screen 3"
-							onPress={e => onButtonPressed(e, '')}
+							onPress={() => navigateToScreen('List')}
 						/>
 					</View>
 					<View style={styles.btnContainer}>
 						<Button
 							title="Go To Screen 4"
-							onPress={e => onButtonPressed(e, '')}
-							color="red"
+							onPress={() => navigateToScreen('List')}
 						/>
 					</View>
 				</View>
 			</View>
 		</View>
-	);
+	)
 }
 
 const styles = StyleSheet.create({

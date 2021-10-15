@@ -5,6 +5,7 @@
 import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { Button, NativeSyntheticEvent, NativeTouchEvent, StyleSheet, Text, TextInput, View } from 'react-native';
+import { RootNavigationProps } from '../../models/NavigationTypes';
 import PickerOptions from '../../models/PickerOptions';
 
 
@@ -12,17 +13,15 @@ interface PassedProps {
 
 }
 
-type Props = PassedProps & NavigationProps
+type Props = PassedProps & RootNavigationProps<'Login'>
 
 
 export default function LoginScreen(props: Props) {
-	const [username, setUsername] = useState("")
-	const [password, setPassword] = useState("")
-	const [selectedDataPolicy, setSelectedPolicy] = useState()
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
+	const [selectedPickerOption, setSelectedPickerOption] = useState()
 
-	const onLoginPressed = (event: NativeSyntheticEvent<NativeTouchEvent>) => {
-		console.log(event)
-	}
+	const onLoginPressed = (event: NativeSyntheticEvent<NativeTouchEvent>) => props.navigation.navigate('Home') // TODO: Add auth check
 
 	return (
 		<View style={styles.container}>
@@ -30,19 +29,35 @@ export default function LoginScreen(props: Props) {
 			<Text style={styles.mainLabel}>App Login Page</Text>
 
 			{/* Username Field */}
-			<TextInput placeholder="Username" onChangeText={txt => setUsername(txt)}>{username}</TextInput>
+			<TextInput
+				onChangeText={txt => setUsername(txt)}
+				placeholder="Username"
+				textContentType="username"
+				keyboardType="default"
+			>
+				{username}
+			</TextInput>
+
 			{/* Password Field */}
-			<TextInput placeholder="Password" onChangeText={txt => setPassword(txt)} secureTextEntry style={styles.password}>{password}</TextInput>
+			<TextInput
+				onChangeText={txt => setPassword(txt)}
+				placeholder="Password" 
+				textContentType="password"
+				autoCompleteType="password"
+				keyboardType="visible-password"
+				secureTextEntry
+				style={styles.password}
+			>
+				{password}
+			</TextInput>
 
 			{/* Option Picker */}
-			<Picker selectedValue={selectedDataPolicy} onValueChange={val => setSelectedPolicy(val)}>
-				<Picker.Item label={PickerOptions.OPTION1} value={PickerOptions.OPTION1} />
-				<Picker.Item label={PickerOptions.OPTION2} value={PickerOptions.OPTION2} />
-				<Picker.Item label={PickerOptions.OPTION3} value={PickerOptions.OPTION3} />
+			<Picker selectedValue={selectedPickerOption} onValueChange={val => setSelectedPickerOption(val)}>
+				{Object.values(PickerOptions).map(v => <Picker.Item label={v} value={v} key={v} />)}
 			</Picker>
 
 			{/* Login Button */}
-			<Button title="Login" onPress={onLoginPressed}>Login</Button>
+			<Button title="Login" onPress={onLoginPressed} />
 		</View>
 	);
 }

@@ -2,7 +2,8 @@
  * 
  */
 
-import { NavigationScreenProp } from "react-navigation"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { NavigationContainerProps, NavigationScreenConfigProps } from "react-navigation"
 
 
 type RootNavigationRouteParameters = {
@@ -14,4 +15,4 @@ type RootNavigationRouteParameters = {
 
 export type RootNavigationRouteName = keyof RootNavigationRouteParameters
 
-export type RootNavigationProps<RootNavigationRouteName> = NavigationScreenProp<RootNavigationRouteParameters, RootNavigationRouteName>
+export type RootNavigationProps<RootNavigationRouteName> = NativeStackScreenProps<RootNavigationRouteParameters, RootNavigationRouteName>
