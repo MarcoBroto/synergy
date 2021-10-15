@@ -2,7 +2,7 @@
  * 
  */
 
-import { NavigationScreenConfigProps } from "react-navigation"
+import { NavigationScreenProp } from "react-navigation"
 
 
 type RootNavigationRouteParameters = {
@@ -14,4 +14,4 @@ type RootNavigationRouteParameters = {
 
 export type RootNavigationRouteName = keyof RootNavigationRouteParameters
 
-export type RootNavigationProps<RootNavigationRouteName> = NavigationScreenConfigProps<RootNavigationRouteParameters, RootNavigationRouteName>
+export type RootNavigationProps<RootNavigationRouteName> = NavigationScreenProp<RootNavigationRouteParameters, RootNavigationRouteName>
