@@ -12,15 +12,15 @@ import LoginScreen from './src/views/screens/LoginScreen';
 
 export default class App extends React.Component {
 	render() {
-		const Stack = createNativeStackNavigator()
+		const RootStack = createNativeStackNavigator()
 
 		return (
 			<>
 				<NavigationContainer>
-					<Stack.Navigator>
-						<Stack.Screen name="Login" component={LoginScreen} />
-						<Stack.Screen name="Home" component={HomeScreen} />
-					</Stack.Navigator>
+					<RootStack.Navigator>
+						<RootStack.Screen name="Login" component={LoginScreen} />
+						<RootStack.Screen name="Home" component={HomeScreen} />
+					</RootStack.Navigator>
 				</NavigationContainer>
 				<View><StatusBar /></View>
 			</>
